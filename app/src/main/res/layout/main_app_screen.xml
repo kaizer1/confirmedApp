@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/doma_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="20dp"
+     app:boxStrokeColor="@color/my_pink"
+    android:hint="@string/domein"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    />
+
+</com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/api_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="20dp"
+    android:hint="@string/api_key"
+             app:boxStrokeColor="@color/my_pink"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    />
+
+</com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/dev_input"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="20dp"
+    android:hint="@string/deviceid"
+    app:boxStrokeColor="@color/my_pink"
+
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+</com.google.android.material.textfield.TextInputLayout>
+
+
+   <RadioGroup
+       android:layout_height="wrap_content"
+       android:layout_width="match_parent"
+       android:orientation="horizontal"
+       android:gravity="center"
+       android:layout_marginTop="20dp"
+       android:elevation="@dimen/cardview_compat_inset_shadow"
+       >
+
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/push_01"
+           android:paddingStart="6dp"
+           android:paddingEnd="30dp"
+           android:textStyle="bold"
+           />
+
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/sms_01"
+                  android:textStyle="bold"
+                android:paddingStart="6dp"
+                      android:paddingEnd="30dp"
+           />
+
+       <RadioButton
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/push_sms_01"
+           android:paddingStart="6dp"
+           android:enabled="true"
+                  android:textStyle="bold"
+           />
+
+   </RadioGroup>
+
+    <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        app:backgroundTint="@color/my_pink"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        />
+
+       <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="20dp"
+        app:backgroundTint="@color/my_pink"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:text="@string/select"
+        android:textColor="@color/white"
+
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        />
+
+
+       <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="20dp"
+        app:backgroundTint="@color/my_pink"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:text="@string/share"
+        android:textColor="@color/white"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+           />
+
+       <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="20dp"
+        app:backgroundTint="@color/my_pink"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:text="@string/dis"
+        android:textColor="@color/white"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        />
+
+       <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="20dp"
+        app:backgroundTint="@color/my_pink"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraSmall"
+        android:text="@string/check"
+        android:textColor="@color/white"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+
+        />
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

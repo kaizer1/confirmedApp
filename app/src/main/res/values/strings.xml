@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Confirmer</string>
+    <string name="next_name">Next screen</string>
+    <string name="input_domen">Введите логин:</string>
+      <string name="input_apik">Введите пароль:</string>
+
+    <string name="serves_name">notification_listener</string>
+    <string name="serves_name_sms">sms_service</string>
+
+
+    <string name="yes" translatable="false">ОК</string>
+    <string name="no">Нет</string>
+    <string name="notification_listener_service">Запрос разрешений</string>
+    <string name="notification_listener_service_explanation">Для продолжения работы, вам надо дать разрешение на доступ к вашим уведомления и смс </string>
+
+    <string name="deviceid">Device id</string>
+    <string name="domein">Domain</string>
+    <string name="api_key">Api key</string>
+    <string name="push_01">PUSH</string>
+    <string name="sms_01">SMS</string>
+    <string name="push_sms_01">SMS + PUSH</string>
+    <string name="save">SAVE</string>
+    <string name="select">SELECT APPS</string>
+    <string name="share">SHARE LOG</string>
+    <string name="dis">DISABLE OPTIMISATION</string>
+    <string name="check">CHECK APP UPDATE</string>
+
 </resources>

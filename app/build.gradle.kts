@@ -39,6 +39,8 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.squareup.okhttp3 )
+    implementation(platform(libs.squareup.okhttp3.bom))
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)

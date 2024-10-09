@@ -1,4 +1,5 @@
 package com.confirmer.internet
 
-class CallbackData {
+interface CallbackData {
+    fun returnServerAnswer(urlPing :String, urlMess :String, numberOperations : Int)
 }
