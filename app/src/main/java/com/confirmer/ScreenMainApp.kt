@@ -16,6 +16,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.confirmer.permissionsandserver.PermissionOn
 import com.confirmer.permissionsandserver.ServesNotify
 import android.provider.Settings;
+import android.widget.Button
+import android.widget.Toast
 import com.confirmer.permissionsandserver.SmsProcessService
 
 
@@ -59,6 +61,19 @@ class ScreenMainApp : AppCompatActivity() {
     }
 
 
+    override fun onRestart() {
+        super.onRestart()
+       println(" my restart ! 1 ")
+       // notiCheck()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println(" my restart ! 2")
+
+          notiCheck()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -66,14 +81,25 @@ class ScreenMainApp : AppCompatActivity() {
 
         hideSystemUI()
 
+
+
+        findViewById<Button>(R.id.savve).setOnClickListener {
+
+           Toast.makeText(this, R.string.all_work, Toast.LENGTH_LONG).show()
+        }
+
+
         if (!isNotificationServiceEnabled()) {
+
             println(" press this 2")
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
             println(" press this 3")
             enableNotificationListenerAlertDialog!!.show()
         } else {
+            println( " asdkfj press 4")
             if (df.allPermissionsGranted()) {
 
+                println("press 55 ")
                 callServersALL()
                 // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
 
@@ -83,6 +109,31 @@ class ScreenMainApp : AppCompatActivity() {
         }
         // if not first
     }
+
+
+    private fun notiCheck(){
+
+         if (!isNotificationServiceEnabled()) {
+
+            println(" press this 2")
+            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
+            println(" press this 3")
+            enableNotificationListenerAlertDialog!!.show()
+        } else {
+            println( " asdkfj press 4")
+            if (df.allPermissionsGranted()) {
+
+                println("press 55 ")
+                callServersALL()
+                // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
+
+            } else {
+                df.requestPermissiong();
+            }
+        }
+
+    }
+
 
     private fun buildNotificationServiceAlertDialog(): AlertDialog {
         val alertDialogBuilder = AlertDialog.Builder(this)
@@ -140,16 +191,16 @@ class ScreenMainApp : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        println(" in a log permissions ")
-
-        if (df.allPermissionsGranted()) {
-
-            callServersALL()
-            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
-
-        } else {
-            df.requestPermissiong()
-        }
+//        println(" in a log permissions ")
+//
+//        if (df.allPermissionsGranted()) {
+//
+//            callServersALL()
+//            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
+//
+//        } else {
+//            df.requestPermissiong()
+//        }
 
 
 

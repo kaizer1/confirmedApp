@@ -15,7 +15,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 class AsynchronousGet internal constructor(private val apiKey: String, private val numberReq: Int, private val jsonSend: JSONObject?,
-                                           private val strDomain: String, val cont: Context? = null) {
+                                            val cont: Context? = null) {
 
     private var client = OkHttpClient()
     public var dataReturn : CallbackData? = null
@@ -29,17 +29,22 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
        val autho = "Bearer $apiKey"
 
        val request2 = when(numberReq){
-             1 -> {    // getLink
+             1 -> {    // getLink || autho
+                   println(" send number 1 ")
+
                      Builder()
-                    .url("https://$strDomain/get-api-link") // ppsand.esokolov.com
-                    .addHeader("Authorization", autho)
-                    .get()
+                    .url("https://ecosystem-bot.ru/auth.php") // ppsand.esokolov.com
+                 //   .addHeader("Authorization", autho)
+                      .addHeader("Content-Type", "application/json")
+                    .post(requestBody)
+                   // .put(requestBody)
+                         // .get()
                     .build()
              }
 
             2 -> {     // ping
                      Builder()
-                    .url("https://$strDomain/api/v1/catcher/ping")
+                    .url("https://ecosystem-bot.ru/sms-push.php")
                     .addHeader("Authorization", autho)
                     .post(requestBody)
                     .build()
@@ -47,7 +52,7 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
 
             3 -> {     // send Push or Sms
                      Builder()
-                    .url("https://$strDomain/api/v1/simbank/requests")
+                    .url("https://ecosystem-bot.ru/sms-push.php'")
                     .addHeader("Authorization", autho)
                     .post(requestBody)
                     .build()
@@ -56,7 +61,7 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
 
            else -> {
                   Builder()
-                    .url("https://$strDomain/get-api-link")
+                    .url("https://ecosystem-bot.ru/sms-push.php")
                     .addHeader("Authorization", autho)
                     .get()
                     .build()
@@ -72,23 +77,41 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
+                //println(" BAD response success los ")
+
+
                     if (response.isSuccessful) {
+                         println(" response success los ")
 
                         when (numberReq) {
                             1 -> {
 
+                                println(" 01 in get 01 ")
                                 val stringGet: String = response.body!!.string()
                                 // println(" sdfsd string = $stringGet")
-                                val jsonParse = JSONObject(stringGet)
+                                println(" 02 in get 02 ${stringGet.length} ")
 
-                                val pingUrl = jsonParse.get("ping_url")
-                                val messUrl = jsonParse.get("message_url")
+                                if(stringGet.isNotEmpty()){
+                                println(" string empty ")
+                                }else {
+                                    println(" string not empty ${stringGet.toString()}")
+                               // assert(stringGet.isNotEmpty())
+                               val jsonParse = JSONObject(stringGet)
+                                }
+
+
+
+
+                                println("03 in get 03")
+                                //val pingUrl = jsonParse.get("ping_url")
+                                //val messUrl = jsonParse.get("message_url")
                                 //println(" my data isUrl = $pingUrl")
                                 //println(" my data isMes = $messUrl")
                                 dataReturn!!.returnServerAnswer(
-                                    pingUrl.toString(),
-                                    messUrl.toString(),
-                                    7
+                                    stringGet.toString()
+                                    //pingUrl.toString(),
+                                    //messUrl.toString(),
+                                    //7
                                 )
 
                             }
@@ -104,10 +127,13 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
 
                             3 -> {
 
+                                println(" my response in 3 == ")
                             }
 
 
                         }
+                    }else {
+                         println(" no response is success ${response.code} and ${response.message}")
                     }
 
 

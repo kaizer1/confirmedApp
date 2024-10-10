@@ -6,6 +6,7 @@
 
     <string name="serves_name">notification_listener</string>
     <string name="serves_name_sms">sms_service</string>
+    <string name="all_work">Всё отлично работает !</string>
 
 
     <string name="yes" translatable="false">ОК</string>

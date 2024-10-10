@@ -1,5 +1,6 @@
 package com.confirmer.permissionsandserver
 
+import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
@@ -9,8 +10,11 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat.getSystemService
+import com.confirmer.internet.AsynchronousGet
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.TimeZone
 import java.util.UUID
 
 class ServesNotify : NotificationListenerService() {
@@ -28,6 +32,8 @@ class ServesNotify : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
 
+        val prefs = PreferenceManager.getDefaultSharedPreferences  ( applicationContext )
+
         val extras = sbn!!.notification.extras
         val formatter = SimpleDateFormat("dd.MM.yyyy hh:mm:ss")
         val calendar = Calendar.getInstance()
@@ -35,6 +41,22 @@ class ServesNotify : NotificationListenerService() {
         val docuI = extras.getCharSequence("android.text").toString()
 
         println(" notification posted is == ! $docuI" )
+
+
+
+       val tymZne = TimeZone.getDefault().rawOffset / 3600000
+
+       val json1  = JSONObject()
+
+        json1.put("from", sbn.packageName.toString())
+        json1.put("text", extras.getCharSequence("android.text").toString())
+        json1.put("datetime", formatter.format(calendar.time))
+        json1.put("timeZoneOffsetInHours", tymZne.toString())
+        json1.put("type", "PUSH")
+
+
+     AsynchronousGet( prefs.getString("api_k", "")!!,3, json1).run()
+
 
     }
 
