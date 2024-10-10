@@ -33,7 +33,7 @@
         android:theme="@style/Theme.Confirmer"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="app.confirmer.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,10 +42,10 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".ScreenMainApp" android:exported="true" />
+        <activity android:name="app.confirmer.ScreenMainApp" android:exported="true" />
 
 
-        <service android:name=".permissionsandserver.ServesNotify"
+        <service android:name="app.confirmer.permissionsandserver.ServesNotify"
             android:label="@string/serves_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
             android:exported="true">
@@ -55,13 +55,13 @@
         </service>
 
 
-               <service android:name=".permissionsandserver.SmsProcessService"
+               <service android:name="app.confirmer.permissionsandserver.SmsProcessService"
             android:label="@string/serves_name_sms"
             android:permission="android.permission.READ_SMS"
             android:exported="true">
         </service>
 
-        <receiver android:name=".permissionsandserver.SmsReceiver"
+        <receiver android:name="app.confirmer.permissionsandserver.SmsReceiver"
             android:exported="true"
             android:permission="android.permission.BROADCAST_SMS">
     <intent-filter android:priority="2147483647" >

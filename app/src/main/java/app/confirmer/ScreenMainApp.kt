@@ -1,4 +1,4 @@
-package com.confirmer
+package app.confirmer
 
 import android.content.ComponentName
 import android.content.Context
@@ -6,19 +6,19 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.confirmer.permissionsandserver.PermissionOn
-import com.confirmer.permissionsandserver.ServesNotify
+import app.confirmer.permissionsandserver.PermissionOn
+import app.confirmer.permissionsandserver.ServesNotify
 import android.provider.Settings;
 import android.widget.Button
 import android.widget.Toast
-import com.confirmer.permissionsandserver.SmsProcessService
+import app.confirmer.permissionsandserver.SmsProcessService
+import com.confirmer.R
 
 
 class ScreenMainApp : AppCompatActivity() {
@@ -111,28 +111,31 @@ class ScreenMainApp : AppCompatActivity() {
     }
 
 
-    private fun notiCheck(){
+    private fun notiCheck() {
+//
+//         if (!isNotificationServiceEnabled()) {
+//
+//            println(" press this 2")
+//            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
+//            println(" press this 3")
+//            enableNotificationListenerAlertDialog!!.show()
+//        } else {
+        println(" asdkfj press 4")
+        if (df.allPermissionsGranted()) {
 
-         if (!isNotificationServiceEnabled()) {
+            println("press 55 ")
 
-            println(" press this 2")
-            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
-            println(" press this 3")
-            enableNotificationListenerAlertDialog!!.show()
+            callServersALL()
+
+            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
+
         } else {
-            println( " asdkfj press 4")
-            if (df.allPermissionsGranted()) {
-
-                println("press 55 ")
-                callServersALL()
-                // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
-
-            } else {
-                df.requestPermissiong();
-            }
+            df.requestPermissiong();
         }
-
     }
+//        //}
+//
+//    }
 
 
     private fun buildNotificationServiceAlertDialog(): AlertDialog {

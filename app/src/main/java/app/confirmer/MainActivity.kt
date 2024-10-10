@@ -1,4 +1,4 @@
-package com.confirmer
+package app.confirmer
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -7,12 +7,12 @@ import android.preference.PreferenceManager
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.confirmer.internet.AsynchronousGet
-import com.confirmer.internet.CallbackData
+import app.confirmer.internet.AsynchronousGet
+import app.confirmer.internet.CallbackData
+import com.confirmer.R
 import com.google.android.material.textfield.TextInputEditText
 import org.json.JSONObject
 
@@ -52,15 +52,8 @@ class MainActivity : AppCompatActivity(), CallbackData {
             async = AsynchronousGet("", 1, json1)
             async.dataReturn = this
             async.run()
-          }
-
-
-
-
+           }
         }
-
-
-
 
     }
 

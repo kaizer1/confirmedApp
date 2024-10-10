@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="app.confirmer" />
+                  <option name="mobileSdkAppId" value="1:341198210087:android:0f951db2e04f041b4fba02" />
+                  <option name="projectId" value="confirmer-446fe" />
+                  <option name="projectNumber" value="341198210087" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

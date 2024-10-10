@@ -1,4 +1,4 @@
-package com.confirmer.permissionsandserver
+package app.confirmer.permissionsandserver
 
 
 
@@ -9,7 +9,7 @@ import android.os.Build
 import android.preference.PreferenceManager
 import android.provider.Settings
 import android.provider.Telephony
-import com.confirmer.internet.AsynchronousGet
+import app.confirmer.internet.AsynchronousGet
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar

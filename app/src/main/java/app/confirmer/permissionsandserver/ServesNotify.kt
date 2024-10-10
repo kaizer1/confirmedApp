@@ -1,4 +1,4 @@
-package com.confirmer.permissionsandserver
+package app.confirmer.permissionsandserver
 
 import android.app.Application
 import android.content.Context
@@ -10,7 +10,7 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.telephony.TelephonyManager
 import androidx.core.content.ContextCompat.getSystemService
-import com.confirmer.internet.AsynchronousGet
+import app.confirmer.internet.AsynchronousGet
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.Calendar

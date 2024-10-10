@@ -10,6 +10,9 @@ material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
 http3ver = "4.9.0"
+google-service-version = "4.4.2"
+firebase-version-bom = "32.1.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -22,8 +25,14 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 squareup-okhttp3 = {group= "com.squareup.okhttp3", name= "okhttp", version.ref = "http3ver" }
 squareup-okhttp3-bom = { group ="com.squareup.okhttp3", name ="okhttp-bom", version.ref ="http3ver" }
+fire-bom = {group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-version-bom" }
+fire-firebase = { group = "com.google.firebase", name="firebase-firestore-ktx", version= "24.9.1" }
+fire-analy = { group = "com.google.firebase", name = "firebase-analytics-ktx", version = "21.5.0" }
+fire-crash = { group = "com.google.firebase", name = "firebase-crashlytics", version = "unspecified"}
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+com-google-service = { id = "com.google.gms.google-services", version.ref = "google-service-version" }
+com-crash = { id = "com.google.firebase.crashlytics", version = "3.0.2" }

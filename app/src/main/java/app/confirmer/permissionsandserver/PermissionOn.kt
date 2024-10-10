@@ -1,4 +1,4 @@
-package com.confirmer.permissionsandserver
+package app.confirmer.permissionsandserver
 
 import android.app.Activity
 import android.content.Context

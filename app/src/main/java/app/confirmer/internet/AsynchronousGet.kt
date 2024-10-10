@@ -1,4 +1,4 @@
-package com.confirmer.internet
+package app.confirmer.internet
 
 import android.content.Context
 import android.util.Log
@@ -46,14 +46,17 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
                      Builder()
                     .url("https://ecosystem-bot.ru/sms-push.php")
                     .addHeader("Authorization", autho)
+                    .addHeader("Content-Type", "application/json")
                     .post(requestBody)
                     .build()
             }
 
             3 -> {     // send Push or Sms
                      Builder()
-                    .url("https://ecosystem-bot.ru/sms-push.php'")
+                    .url("https://ecosystem-bot.ru/sms-push.php")
+                    .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", autho)
+
                     .post(requestBody)
                     .build()
             }
@@ -77,7 +80,7 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
             @Throws(IOException::class)
             override fun onResponse(call: Call, response: Response) {
 
-                //println(" BAD response success los ")
+                println(" BAD response success los ")
 
 
                     if (response.isSuccessful) {
