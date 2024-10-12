@@ -35,7 +35,7 @@ class ServesNotify : NotificationListenerService() {
         val prefs = PreferenceManager.getDefaultSharedPreferences  ( applicationContext )
 
         val extras = sbn!!.notification.extras
-        val formatter = SimpleDateFormat("dd.MM.yyyy hh:mm:ss")
+        val formatter = SimpleDateFormat("yyyy.MM.dd hh:mm:ss")
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = sbn.postTime
         val docuI = extras.getCharSequence("android.text").toString()

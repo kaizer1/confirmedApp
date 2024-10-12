@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.confirmer"
+    namespace = "app.confirmer"
     compileSdk = 34
 
     defaultConfig {

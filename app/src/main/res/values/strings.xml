@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Confirmer</string>
-    <string name="next_name">Next screen</string>
+    <string name="next_name">Войти</string>
     <string name="input_domen">Введите логин:</string>
       <string name="input_apik">Введите пароль:</string>
 
     <string name="serves_name">notification_listener</string>
     <string name="serves_name_sms">sms_service</string>
     <string name="all_work">Всё отлично работает !</string>
+    <string name="ping_name">service_ping</string>
 
 
     <string name="yes" translatable="false">ОК</string>
@@ -25,5 +26,6 @@
     <string name="share">SHARE LOG</string>
     <string name="dis">DISABLE OPTIMISATION</string>
     <string name="check">CHECK APP UPDATE</string>
+    <string name="version">Version 1.0</string>
 
 </resources>

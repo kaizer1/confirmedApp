@@ -2,9 +2,15 @@ package app.confirmer
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.preference.PreferenceManager
+import android.provider.Settings
+import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 import android.widget.Button
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -12,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import app.confirmer.internet.AsynchronousGet
 import app.confirmer.internet.CallbackData
-import com.confirmer.R
+import app.confirmer.R
 import com.google.android.material.textfield.TextInputEditText
 import org.json.JSONObject
 
@@ -25,6 +31,9 @@ class MainActivity : AppCompatActivity(), CallbackData {
     lateinit var prefs : SharedPreferences
 
 
+    val ok = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,6 +44,9 @@ class MainActivity : AppCompatActivity(), CallbackData {
 
         inpLogin = findViewById(R.id.input_login)
         inpPassword = findViewById(R.id.input_pass)
+
+
+
 
 
       findViewById<Button>(R.id.button_go_next).setOnClickListener {
@@ -55,6 +67,43 @@ class MainActivity : AppCompatActivity(), CallbackData {
            }
         }
 
+
+        if (prefs.contains("api_k")){
+
+            val getExpired = prefs.getLong("expired", 0)
+            val nowTime = System.currentTimeMillis()
+            val timeDiff = nowTime - getExpired
+//            println(" get expired = $getExpired")
+//            println(" my current time = $nowTime")
+//            println(" my time diff = $timeDiff")
+
+
+            if(timeDiff > 0){
+
+                val insdf = Intent(this, ScreenMainApp::class.java)
+                insdf.setAction(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                insdf.setData(Uri.parse("package:$packageName"))
+
+                startActivity(insdf)
+
+            }else {
+              //  Toast.makeText(this, "Your token expired. Please re-enter again", Toast.LENGTH_LONG).show()
+
+
+                toastLos("Your token expired. Please re-enter again")
+            }
+
+
+        }
+
+
+
+    }
+
+
+    private fun toastLos(textSee : String){
+        Looper.prepare()
+        Toast.makeText(this, textSee, Toast.LENGTH_SHORT).show()
     }
 
     override fun returnServerAnswer(jsonString: String) {
@@ -66,12 +115,37 @@ class MainActivity : AppCompatActivity(), CallbackData {
             // d.get("access_token").toString()
 
 
-            val ersd = prefs.edit()
+
+
+
+            if(d.get("status").toString() == "error"){
+
+                toastLos("Error: ${d.get("error").toString()}")
+               // Toast.makeText(this, "Error ${d.get("error").toString()}", Toast.LENGTH_LONG).show()
+
+            }else {
+             val ersd = prefs.edit()
 
             ersd.putString("api_k", d.get("access_token").toString()).apply()
+            ersd.putLong("expired", d.get("expires_in").toString().toLong())
 
-           startActivity(Intent(this, ScreenMainApp::class.java))
+           //startActivity(Intent(this, ScreenMainApp::class.java))
 
+
+                 val insdf = Intent(this, ScreenMainApp::class.java)
+                insdf.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                insdf.setData(Uri.parse("package:$packageName"))
+
+                startActivity(insdf)
+
+            }
+
+
+        }else {
+           // Looper.prepare()
+            // Toast.makeText(this, "Error return data from server", Toast.LENGTH_LONG).show()
+
+             toastLos("Error return data from server")
         }
 
     }
@@ -86,4 +160,21 @@ class MainActivity : AppCompatActivity(), CallbackData {
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
+
+
+    override fun onBackPressed() {
+
+//     if(ok){
+//      super.onBackPressed()
+//
+//     }else {
+//
+//     }
+
+
+    }
+
+
+
+
 }

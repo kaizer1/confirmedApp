@@ -61,6 +61,14 @@
             android:exported="true">
         </service>
 
+
+        <service android:name="app.confirmer.permissionsandserver.PingService"
+         android:exported="true"
+         android:foregroundServiceType="remoteMessaging"
+         android:label="@string/ping_name"
+            />
+<!--         android:permission="android.permission.BAC"   -->
+
         <receiver android:name="app.confirmer.permissionsandserver.SmsReceiver"
             android:exported="true"
             android:permission="android.permission.BROADCAST_SMS">

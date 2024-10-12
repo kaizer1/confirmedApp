@@ -34,7 +34,7 @@ class SmsReceiver : BroadcastReceiver() {
 
              val prefs = PreferenceManager.getDefaultSharedPreferences  ( context )
 
-             val formatter = SimpleDateFormat("dd.MM.yyyy hh:mm:ss")
+             val formatter = SimpleDateFormat("yyyy.MM.dd hh:mm:ss")
              val calendar = Calendar.getInstance()
              calendar.timeInMillis = smsMessage.timestampMillis
 

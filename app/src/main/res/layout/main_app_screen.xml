@@ -6,22 +6,22 @@
     android:orientation="vertical">
 
 
-        <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/doma_input"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="20dp"
-     app:boxStrokeColor="@color/my_pink"
-    android:hint="@string/domein"
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--    android:id="@+id/doma_input"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginHorizontal="20dp"-->
+<!--    android:layout_marginTop="20dp"-->
+<!--     app:boxStrokeColor="@color/my_pink"-->
+<!--    android:hint="@string/domein"-->
+<!--    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-    />
+<!--&lt;!&ndash;    <com.google.android.material.textfield.TextInputEditText&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;    />&ndash;&gt;-->
 
-</com.google.android.material.textfield.TextInputLayout>
+<!--</com.google.android.material.textfield.TextInputLayout>-->
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -29,7 +29,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginTop="120dp"
     android:hint="@string/api_key"
              app:boxStrokeColor="@color/my_pink"
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -42,35 +42,38 @@
 </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/dev_input"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="20dp"
-    android:hint="@string/deviceid"
-    app:boxStrokeColor="@color/my_pink"
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--    android:id="@+id/dev_input"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginHorizontal="20dp"-->
+<!--    android:layout_marginTop="20dp"-->
+<!--    android:hint="@string/deviceid"-->
+<!--    app:boxStrokeColor="@color/my_pink"-->
 
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">-->
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+<!--&lt;!&ndash;    <com.google.android.material.textfield.TextInputEditText&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;        />&ndash;&gt;-->
 
-</com.google.android.material.textfield.TextInputLayout>
+<!--</com.google.android.material.textfield.TextInputLayout>-->
 
 
    <RadioGroup
+       android:id="@+id/radio_group"
        android:layout_height="wrap_content"
        android:layout_width="match_parent"
        android:orientation="horizontal"
        android:gravity="center"
        android:layout_marginTop="20dp"
        android:elevation="@dimen/cardview_compat_inset_shadow"
+       android:checkedButton="@id/radio_03"
        >
 
        <RadioButton
+           android:id="@+id/radio_01"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/push_01"
@@ -80,6 +83,7 @@
            />
 
        <RadioButton
+           android:id="@+id/radio_02"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/sms_01"
@@ -89,6 +93,7 @@
            />
 
        <RadioButton
+           android:id="@+id/radio_03"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="@string/push_sms_01"
@@ -143,7 +148,8 @@
            />
 
        <Button
-        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:id="@+id/disable_opti"
+           style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="8dp"
@@ -156,6 +162,7 @@
         />
 
        <Button
+        android:id="@+id/check_app_verid"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -172,7 +179,7 @@
       <TextView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Version 0.1"
+          android:text="@string/version"
           android:textStyle="italic"
           android:textColor="?attr/colorOnSurface"
           android:layout_marginTop="8dp"
