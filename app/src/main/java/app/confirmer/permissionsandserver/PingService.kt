@@ -65,24 +65,42 @@ class PingService  : Service() {
         }, 0, 30000) // 30 seconds
 
 
-        return START_STICKY
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
 
         val notificationManager =  getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = createNotificationChannel(notificationManager)
         val notificationBuilder =  NotificationCompat.Builder(this, channelId)
         val notification = notificationBuilder.setOngoing(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(getText(R.string.work_conf))
                 .setPriority(PRIORITY_MIN)
                 .setCategory(NotificationCompat.CATEGORY_SERVICE)
                 .build()
 
 
         startForeground(ID_SERVICE, notification)
+
+        return START_STICKY
+    }
+
+
+    
+
+
+    override fun onCreate() {
+        super.onCreate()
+
+
+//        val notificationManager =  getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        val channelId = createNotificationChannel(notificationManager)
+//        val notificationBuilder =  NotificationCompat.Builder(this, channelId)
+//        val notification = notificationBuilder.setOngoing(true)
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .setPriority(PRIORITY_MIN)
+//                .setCategory(NotificationCompat.CATEGORY_SERVICE)
+//                .build()
+//
+//
+//        startForeground(ID_SERVICE, notification)
 
     }
 

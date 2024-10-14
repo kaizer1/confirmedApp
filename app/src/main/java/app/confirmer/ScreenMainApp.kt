@@ -35,7 +35,6 @@ import org.json.JSONObject
 class ScreenMainApp : AppCompatActivity(), CallbackData {
 
 
-
     lateinit var prefc : SharedPreferences
     val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     val ACTION_NOTIFICATION_LISTENER_SETTINGS =
@@ -47,10 +46,8 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
     private fun isNotificationServiceEnabled(): Boolean {
         val pkgName = getPackageName()
-        //val ENABLED_NOTIFICATION_LISTENERS = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
         val flat = Settings.Secure.getString(contentResolver, ENABLED_NOTIFICATION_LISTENERS)
         if (!TextUtils.isEmpty(flat)) {
-            //final String[] names = flat.split(":");
             val names = flat.split(":")
 
             for (i in names) {
@@ -60,15 +57,6 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                         return true
                 }
             }
-
-//            for (int i = 0; i < names.length; i++) {
-//                final ComponentName cn = ComponentName.unflattenFromString(names[i]);
-//                if (cn != null) {
-//                    if (TextUtils.equals(pkgName, cn.getPackageName())) {
-//                        return true;
-//                    }
-//                }
-//            }
         }
         return false
     }
@@ -76,14 +64,10 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
     override fun onRestart() {
         super.onRestart()
-       println(" my restart ! 1 ")
-       // notiCheck()
     }
 
     override fun onResume() {
         super.onResume()
-        println(" my restart ! 2")
-
           notiCheck()
     }
 
@@ -98,6 +82,11 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
         prefc = PreferenceManager.getDefaultSharedPreferences(applicationContext)
        val RadioCurrent =  prefc.getInt("current_radio", 1)
 
+
+
+        findViewById<Button>(R.id.button_select).setOnClickListener {
+            startActivity(Intent(this, ActivityChangeAppSends::class.java))
+        }
 
         findViewById<Button>(R.id.savve).setOnClickListener {
 
@@ -119,31 +108,25 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
             val radio: RadioButton = findViewById(i)
             Toast.makeText(applicationContext," On checked change : ${radio.text}",
-                Toast.LENGTH_SHORT).show()
-
-
-
+            Toast.LENGTH_SHORT).show()
         val editor = prefc.edit()
 
 
 
             when(radio.text){
                 "SMS" -> {
-                    println(" los call SMS ")
 
                     val myService = Intent(this, ServesNotify::class.java)
                     stopService(myService)
                     editor.putInt("current_radio", 1)
                 }
                 "PUSH" -> {
-                    println(" los call PUSH ")
                     val myService = Intent(this, SmsProcessService::class.java)
                     stopService(myService)
                     editor.putInt("current_radio", 2)
                 }
 
                 "SMS + PUSH" -> {
-                    println(" sms + los push ")
 
                     val myService1 = Intent(this, ServesNotify::class.java)
                     stopService(myService1)
@@ -161,55 +144,29 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
         val smsServiceIntent = Intent(this, SmsProcessService::class.java)
         smsServiceIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startService(smsServiceIntent)
-
-                    editor.putInt("current_radio", 3)
-
-                }
+                    editor.putInt("current_radio", 3) }
             }
-
 
              editor.clear()
              editor.apply()
-
-            println(" my number is == ${radioGroup.checkedRadioButtonId}")
-            println(" my number is2 == ${radioGroup.id}")
         }
 
 
 
         findViewById<Button>(R.id.disable_opti).setOnClickListener {
-         println(" disable optimisation ! ")
             df.requesrPermissionDisableBatteryOptimisation()
-
-            //val df = PowerManager as PowerManager
             val PowerManagerL = getSystemService(Context.POWER_SERVICE) as PowerManager
 
             val isIgnoringBatteryOptimizations = PowerManagerL.isIgnoringBatteryOptimizations("app.confirmer")
-
-            println(" isIgnoringBatteryOptimizations = $isIgnoringBatteryOptimizations")
-
             val intent = Intent()
 
             if(isIgnoringBatteryOptimizations){
-                println(" ok ignore optimisations ")
-                   //     intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-
                 Toast.makeText(this, "Optimisation is disabled", Toast.LENGTH_SHORT).show()
-
             }else {
-                println(" not ignore optimisations ")
                 intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
                 intent.setData(Uri.parse("package:$packageName"))
-                startActivity(intent)
-            }
-
-
-
-
-
+                startActivity(intent)  }
         }
-
-
 
 
         findViewById<Button>(R.id.check_app_verid).setOnClickListener {
@@ -217,64 +174,35 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                val json1=  JSONObject()
 
                 json1.put("version", "1.0")
-
-                println(" in check app update ")
-               val sdf =  AsynchronousGet(prefc.getString("api_k", "")!!, 4, json1)
+             val sdf =  AsynchronousGet(prefc.getString("api_k", "")!!, 4, json1)
                 sdf.dataReturn = this
                 sdf.run()
 
             }
 
-
-
-
         if (!isNotificationServiceEnabled()) {
-
-            println(" press this 2")
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
-            println(" press this 3")
             enableNotificationListenerAlertDialog!!.show()
         } else {
-            println( " asdkfj press 4")
             if (df.allPermissionsGranted()) {
-
-                println("press 55 ")
                 callServersALL()
-                // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
-
             } else {
                 df.requestPermissiong();
             }
         }
-        // if not first
     }
 
 
     private fun notiCheck() {
-//
-//         if (!isNotificationServiceEnabled()) {
-//
-//            println(" press this 2")
-//            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
-//            println(" press this 3")
-//            enableNotificationListenerAlertDialog!!.show()
-//        } else {
-        println(" asdkfj press 4")
+
         if (df.allPermissionsGranted()) {
 
-            println("press 55 ")
-
             callServersALL()
-
-            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
 
         } else {
             df.requestPermissiong();
         }
     }
-//        //}
-//
-//    }
 
 
     private fun buildNotificationServiceAlertDialog(): AlertDialog {
@@ -297,7 +225,6 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
         //val android_id = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        println(" in a start servers ")
         val requl = Intent(this, ServesNotify::class.java)
         requl.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startService(requl)
@@ -330,40 +257,13 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-//        println(" in a log permissions ")
-//
-//        if (df.allPermissionsGranted()) {
-//
-//            callServersALL()
-//            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
-//
-//        } else {
-//            df.requestPermissiong()
-//        }
-
-
-
-
             when (requestCode) {
                 11 -> {
-                    // If request is cancelled, the result arrays are empty.
                     if ((grantResults.isNotEmpty() &&
                                 grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     ) {
-                        println(" all request  is granted ! ")
 
                         callServersALL()
-
-                            // mContext.startActivity(Intent(mContext, testTabCompose::class.java))
-
-                        // Permission is granted. Continue the action or workflow
-                        // in your app.
-                    } else {
-                        // Explain to the user that the feature is unavailable because
-                        // the feature requires a permission that the user has denied.
-                        // At the same time, respect the user's decision. Don't link to
-                        // system settings in an effort to convince the user to change
-                        // their decision.
                     }
                     return
                 }
@@ -373,47 +273,22 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
        override fun onBackPressed() {
 
-//     if(ok){
-//      super.onBackPressed()
-//
-//     }else {
-//
-//     }
-
-
     }
 
-
     override fun returnServerAnswer(jsonString: String) {
-        println(" my return json = ${jsonString.toString()}")
-
-
-        // Can't toast on a thread that has not called Looper.prepare()
         Looper.prepare()
 
               val sdf = JSONObject(jsonString)
 
            if(sdf.get("status".toString()).equals("error")){
-
            }else {
-
                     if(sdf.get("version".toString()).equals("latest-version")){
                 Toast.makeText(this, sdf.get("text").toString(), Toast.LENGTH_SHORT).show()
-
-
                  }else {
-
        Toast.makeText(this, sdf.get("text").toString(), Toast.LENGTH_SHORT).show()
        Toast.makeText(this, sdf.get("link").toString(), Toast.LENGTH_LONG).show()
-
-
-
                 }
-
            }
-
-
-
      }
 
 

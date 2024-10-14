@@ -3,6 +3,7 @@ package app.confirmer.permissionsandserver
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.os.IBinder
 import android.preference.PreferenceManager
 import android.provider.Settings
@@ -22,6 +23,26 @@ class ServesNotify : NotificationListenerService() {
    private companion object{
        const val push : String =  "PUSH"
       // val uniqueID = ServesNotifyWork.android_id
+    }
+
+
+        private fun getRealName(namePackages : String ) : String {
+
+        println(" my name pack = ${namePackages}")
+        val pm = applicationContext.packageManager
+        val ai : ApplicationInfo? = try {
+            pm.getApplicationInfo(namePackages,0)
+        }catch (e : Exception){
+            null
+        }
+
+       val appRealName : String = if(ai == null){
+            ""
+        }else {
+            pm.getApplicationLabel(ai).toString()
+       }
+
+        return appRealName
     }
 
 
@@ -55,7 +76,15 @@ class ServesNotify : NotificationListenerService() {
         json1.put("type", "PUSH")
 
 
-     AsynchronousGet( prefs.getString("api_k", "")!!,3, json1).run()
+         if(prefs.contains("filter")) {
+             val mainStringFilter = prefs.getString("filter", "")
+
+             if (mainStringFilter!!.contains(getRealName(sbn.packageName.toString()))) {
+           AsynchronousGet( prefs.getString("api_k", "")!!,3, json1).run()
+             }
+         }
+
+
 
 
     }

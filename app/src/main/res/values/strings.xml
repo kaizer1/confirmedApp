@@ -8,6 +8,8 @@
     <string name="serves_name_sms">sms_service</string>
     <string name="all_work">Всё отлично работает !</string>
     <string name="ping_name">service_ping</string>
+    <string name="work_conf">Work Confirmer</string>
+    <string name="yous_apps">Ваши приложения</string>
 
 
     <string name="yes" translatable="false">ОК</string>

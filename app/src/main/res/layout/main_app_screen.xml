@@ -120,6 +120,7 @@
         />
 
        <Button
+        android:id="@+id/button_select"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="match_parent"
         android:layout_height="52dp"

@@ -41,6 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ActivityChangeAppSends" android:exported="false" />
+
         
         <activity android:name="app.confirmer.ScreenMainApp" android:exported="true" />
 
@@ -63,10 +66,9 @@
 
 
         <service android:name="app.confirmer.permissionsandserver.PingService"
-         android:exported="true"
+         android:exported="false"
          android:foregroundServiceType="remoteMessaging"
-         android:label="@string/ping_name"
-            />
+         android:label="@string/ping_name" />
 <!--         android:permission="android.permission.BAC"   -->
 
         <receiver android:name="app.confirmer.permissionsandserver.SmsReceiver"

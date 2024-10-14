@@ -39,19 +39,6 @@ class SmsReceiver : BroadcastReceiver() {
              calendar.timeInMillis = smsMessage.timestampMillis
 
 
-             //println( " my SMS text =    ${smsMessage.displayMessageBody}" )
-             //println( " my SMS address = ${smsMessage.displayOriginatingAddress}" )
-             //println( " my SMS time =    ${smsMessage.timestampMillis}" )
-
-             //val newString = smsMessage.displayMessageBody.toString().replace("//", "www")
-
-
-
-
-             //println( " my SMS text = ${smsMessage.displayMessageBody}" )
-             //println( " my SMS text = ${smsMessage.displayMessageBody}" )
-             //println( " my SMS text = ${smsMessage.displayMessageBody}" )
-
             val tymZne = TimeZone.getDefault().rawOffset / 3600000
 
        val json1  = JSONObject()
