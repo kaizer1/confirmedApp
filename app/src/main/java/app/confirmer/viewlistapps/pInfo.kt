@@ -3,12 +3,12 @@ package app.confirmer.viewlistapps
 import android.graphics.drawable.Drawable
 
 data class pInfo(
-         val appName: String,
-         val pName: String,
-         val verName: String,
-         val verCode: Int,
-         val iconD: Drawable,
-         val checkb : Boolean
+    val appName: String,
+    val pName: String,
+    val verName: String,
+    val verCode: Int,
+    val iconD: Drawable,
+    var checkb : Boolean
      ) {
 
 

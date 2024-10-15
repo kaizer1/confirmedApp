@@ -20,15 +20,21 @@ import app.confirmer.permissionsandserver.PermissionOn
 import app.confirmer.permissionsandserver.ServesNotify
 import android.provider.Settings;
 import android.provider.Telephony.Sms
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.MainThread
 import app.confirmer.permissionsandserver.PingService
 import app.confirmer.permissionsandserver.SmsProcessService
 import app.confirmer.R
 import app.confirmer.internet.AsynchronousGet
 import app.confirmer.internet.CallbackData
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 import org.json.JSONObject
 
 
@@ -80,7 +86,7 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
 
         prefc = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-       val RadioCurrent =  prefc.getInt("current_radio", 1)
+        val RadioCurrent =  prefc.getInt("current_radio", 3)
 
 
 
@@ -88,9 +94,57 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
             startActivity(Intent(this, ActivityChangeAppSends::class.java))
         }
 
+
+        val enterApIKEY = findViewById<TextInputEditText>(R.id.enter_apil)
+
+        enterApIKEY.setText(prefc.getString("api_real_key", "").toString())
+
+
+
         findViewById<Button>(R.id.savve).setOnClickListener {
 
-           Toast.makeText(this, R.string.all_work, Toast.LENGTH_LONG).show()
+            println(" press save button ! ")
+            if(enterApIKEY.text.toString().isNotEmpty()){
+
+                val myService = Intent(this, SmsProcessService::class.java)
+                    stopService(myService)
+
+                 val myService1 = Intent(this, ServesNotify::class.java)
+                    stopService(myService1)
+
+                 val intentFore = Intent(this, PingService::class.java)
+                    stopService(intentFore)
+
+
+
+                val editor = prefc.edit()
+                editor.putString("api_real_key", enterApIKEY.text.toString())
+                editor.apply()
+
+
+
+                callServersALL()
+
+            }else {
+
+                // You need to use a Theme.AppCompat theme (or descendant) with this activity.
+                println("api key empty ")
+               val builder = MaterialAlertDialogBuilder(this)
+                println(" api key 11212 ")
+            builder
+    .setTitle("Api key не может быть пустым")
+    //.setCustomTitle(textView)
+    .setMessage("Вы не ввели api_key - введите его для начала работы")
+    .setIcon(R.mipmap.ic_launcher_round)
+    .setPositiveButton("Понятно") {
+            dialog, id ->  dialog.cancel()
+    }
+            builder.create()
+            builder.show()
+
+
+            }
+
         }
 
         val radioGroup = findViewById<RadioGroup>(R.id.radio_group)
@@ -174,6 +228,8 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                val json1=  JSONObject()
 
                 json1.put("version", "1.0")
+                json1.put("api_key", prefc.getString("api_real_key", "").toString())
+
              val sdf =  AsynchronousGet(prefc.getString("api_k", "")!!, 4, json1)
                 sdf.dataReturn = this
                 sdf.run()
@@ -185,7 +241,7 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
             enableNotificationListenerAlertDialog!!.show()
         } else {
             if (df.allPermissionsGranted()) {
-                callServersALL()
+                //callServersALL()
             } else {
                 df.requestPermissiong();
             }
@@ -197,7 +253,7 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
         if (df.allPermissionsGranted()) {
 
-            callServersALL()
+           // callServersALL()
 
         } else {
             df.requestPermissiong();
@@ -263,7 +319,7 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                                 grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     ) {
 
-                        callServersALL()
+//                        callServersALL()
                     }
                     return
                 }
@@ -285,10 +341,47 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                     if(sdf.get("version".toString()).equals("latest-version")){
                 Toast.makeText(this, sdf.get("text").toString(), Toast.LENGTH_SHORT).show()
                  }else {
-       Toast.makeText(this, sdf.get("text").toString(), Toast.LENGTH_SHORT).show()
-       Toast.makeText(this, sdf.get("link").toString(), Toast.LENGTH_LONG).show()
-                }
+
+                        val tv  = TextView(this)
+                         var mainAlert : AlertDialog? = null
+                        val df =  sdf.get("text").toString() + " \n " + Html.fromHtml("<a href=\'${sdf.get("link").toString()}\'>${sdf.get("link").toString()}</a>")
+
+                        tv.movementMethod = LinkMovementMethod.getInstance()
+                        tv.text = df
+
+                        println(" aasdsd ")
+
+                      val alertLink = MaterialAlertDialogBuilder(this)
+                        alertLink
+                            //.setView(tv)
+                             //.setMessage(sdf.get("text").toString() + " \n " + sdf.get("link").toString())
+                            .setMessage(df.toString())
+                            .setCancelable(false)
+                            .setPositiveButton("Обновить") {
+            dialog, id ->  dialog.cancel()
+                                println(" press okok ")
+                                //mainAlert!!.dismiss()
+                    }
+            alertLink.create()
+
+            //            mainAlert
+              //              .setButton(AlertDialog.BUTTON_POSITIVE, "Обновить", {
+                //                   dialog, id ->  {
+//                                       dialog.cancel()
+//                                println(" in a button positive ")
+//                                    }
+//
+//
+//                            })
+
+                            //   mainAlert.findViewById<TextView>(android.R.id.message)?.movementMethod = LinkMovementMethod.getInstance()
+
+                     runOnUiThread {
+                               alertLink.show()
+                     }
+                 }
            }
+
      }
 
 

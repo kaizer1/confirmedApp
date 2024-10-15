@@ -63,6 +63,7 @@ class AsynchronousGet internal constructor(private val apiKey: String, private v
 
                 json1.put("time",formatter.format(calendar.time))
                 json1.put("timeZoneOffsetInHours", tymZne)
+                json1.put("api_key", jsonSend!!.get("api_key").toString())
 
                 val  request3  = RequestBody.create( JSON_MEDIA, json1.toString())
 

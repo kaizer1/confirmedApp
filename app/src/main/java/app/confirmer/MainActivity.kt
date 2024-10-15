@@ -54,13 +54,13 @@ class MainActivity : AppCompatActivity(), CallbackData {
 
         if (prefs.contains("api_k")) {
             val getExpired = prefs.getLong("expired", 0)
+            println(" my contains api_K == ${prefs.getString("api_k", "")}")
             val nowTime = System.currentTimeMillis()
             val timeDiff = nowTime - getExpired
             if (timeDiff > 0) {
 
+                println(" contains a api_k")
                 val insdf = Intent(this, ScreenMainApp::class.java)
-                insdf.setAction(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-                insdf.setData(Uri.parse("package:$packageName"))
                 startActivity(insdf)
 
             } else {

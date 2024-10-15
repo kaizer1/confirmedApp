@@ -30,6 +30,7 @@ class ActivityChangeAppSends : AppCompatActivity() {
         val boxAdapter = CustomAdapter(this, getPackages())
         findViewById<ListView>(R.id.id_list).adapter = boxAdapter
 
+
     }
 
         fun getPackages() : ArrayList<pInfo> {

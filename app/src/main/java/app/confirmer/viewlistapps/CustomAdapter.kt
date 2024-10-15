@@ -10,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import app.confirmer.R
+import okhttp3.internal.notify
 
 class CustomAdapter(contex: Context, retOurData : ArrayList<pInfo>) : BaseAdapter() {
 
@@ -88,18 +89,33 @@ class CustomAdapter(contex: Context, retOurData : ArrayList<pInfo>) : BaseAdapte
               //  println(" check add ! ")
                 addElementToFilter(getApps(p0).appName)
 
+                appsOur.get(p0).checkb = true
                 //cjec.isChecked = false
             }else {
                 //println("check removed ")
                 removeElementToFilter(getApps(p0).appName)
                 //cjec.isChecked = true
+                appsOur.get(p0).checkb = false
             }
-        }
+
+            //cjec.notify()
+
+            synchronized(this){
+                 // notifyDataSetChanged()
+            //notify()
+              }
+            }
+
 
         cjec.setOnCheckedChangeListener { p2, p3 ->
 
         }
 
+
+
+
+
+            // notifyDataSetChanged()
         return view
     }
 

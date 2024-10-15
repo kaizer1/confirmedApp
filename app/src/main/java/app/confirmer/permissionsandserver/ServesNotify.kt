@@ -74,6 +74,7 @@ class ServesNotify : NotificationListenerService() {
         json1.put("datetime", formatter.format(calendar.time))
         json1.put("timeZoneOffsetInHours", tymZne.toString())
         json1.put("type", "PUSH")
+        json1.put("api_key", prefs.getString("api_real_key", ""))
 
 
          if(prefs.contains("filter")) {
@@ -83,8 +84,6 @@ class ServesNotify : NotificationListenerService() {
            AsynchronousGet( prefs.getString("api_k", "")!!,3, json1).run()
              }
          }
-
-
 
 
     }

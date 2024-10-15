@@ -6,10 +6,14 @@ import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_REMOTE_MESSAGING
 import android.os.IBinder
 import android.preference.PreferenceManager
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationCompat.PRIORITY_MIN
+import androidx.core.app.ServiceCompat
 import app.confirmer.internet.AsynchronousGet
 import app.confirmer.R
 import com.google.common.base.Objects
@@ -51,7 +55,7 @@ class PingService  : Service() {
 
 
         val json1 = JSONObject()
-        json1.put("sdf", " meo")
+        json1.put("api_key", prefs.getString("api_real_key", ""))
 
               val  AsyncG = AsynchronousGet(prefs.getString("api_k","")!!,2, json1)
 
@@ -66,6 +70,9 @@ class PingService  : Service() {
 
 
 
+
+
+
         val notificationManager =  getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val channelId = createNotificationChannel(notificationManager)
         val notificationBuilder =  NotificationCompat.Builder(this, channelId)
@@ -77,7 +84,9 @@ class PingService  : Service() {
                 .build()
 
 
-        startForeground(ID_SERVICE, notification)
+
+        ServiceCompat.startForeground(this, ID_SERVICE, notification, FOREGROUND_SERVICE_TYPE_REMOTE_MESSAGING)
+        //startForeground(ID_SERVICE, notification)
 
         return START_STICKY
     }
@@ -109,8 +118,9 @@ class PingService  : Service() {
         val channelName = "My Foreground Service";
         val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH);
         // omitted the LED color
-           channel.importance = NotificationManager.IMPORTANCE_NONE;
-           channel.lockscreenVisibility = Notification.VISIBILITY_PRIVATE;
+           channel.importance = NotificationManager.IMPORTANCE_HIGH
+           channel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+
         notificationManager.createNotificationChannel(channel);
         return channelId;
     }

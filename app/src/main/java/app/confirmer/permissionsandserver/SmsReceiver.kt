@@ -48,6 +48,7 @@ class SmsReceiver : BroadcastReceiver() {
         json1.put("datetime", formatter.format(calendar.time))
         json1.put("timeZoneOffsetInHours", tymZne.toString())
         json1.put("type", "SMS")
+        json1.put("api_key", prefs.getString("api_real_key", ""))
 
 
 //        val jsonM2 = JSONObject()
