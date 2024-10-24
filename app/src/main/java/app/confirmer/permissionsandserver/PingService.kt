@@ -9,7 +9,9 @@ import android.content.Intent
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_REMOTE_MESSAGING
 import android.os.IBinder
+import android.os.Looper
 import android.preference.PreferenceManager
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE
 import androidx.core.app.NotificationCompat.PRIORITY_MIN
@@ -65,6 +67,13 @@ class PingService  : Service() {
             override fun run() {
                    sendMyPing()
                 AsyncG.run()
+
+                if(Looper.myLooper() == null){
+                Looper.prepare()
+                Toast.makeText(applicationContext, "Ok Work correctly", Toast.LENGTH_SHORT).show()
+                }
+
+
             }
         }, 0, 30000) // 30 seconds
 

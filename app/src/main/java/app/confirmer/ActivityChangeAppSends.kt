@@ -60,6 +60,8 @@ class ActivityChangeAppSends : AppCompatActivity() {
 
                  val nameAppld = it.applicationInfo.loadLabel(applicationContext.packageManager).toString()
 
+                 println(" my package name = ${it.packageName}")
+
            var existsCheck = false
            if(prefs.contains("filter")){
            val mainStringFilter = prefs.getString("filter", "")

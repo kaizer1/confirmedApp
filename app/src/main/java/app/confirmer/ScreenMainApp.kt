@@ -33,15 +33,20 @@ import app.confirmer.permissionsandserver.SmsProcessService
 import app.confirmer.R
 import app.confirmer.internet.AsynchronousGet
 import app.confirmer.internet.CallbackData
+import app.confirmer.viewlistapps.AppVersion
+import app.confirmer.viewlistapps.WEbActive
+import app.confirmer.viewlistapps.getAppVersion
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import org.json.JSONObject
+import kotlin.properties.Delegates
 
 
 class ScreenMainApp : AppCompatActivity(), CallbackData {
 
 
     lateinit var prefc : SharedPreferences
+    var myVersionNumber by Delegates.notNull<Long>()
     val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners";
     val ACTION_NOTIFICATION_LISTENER_SETTINGS =
         "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
@@ -84,6 +89,12 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
         hideSystemUI()
 
+
+        val apVers = getAppVersion(this)
+
+        println("My number version ==  ${apVers!!.versionNumber} ")
+
+        myVersionNumber = apVers.versionNumber
 
         prefc = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val RadioCurrent =  prefc.getInt("current_radio", 3)
@@ -189,7 +200,8 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                     val myService = Intent(this, SmsProcessService::class.java)
                     stopService(myService)
 
-                     Thread.sleep(1000)
+                     Thread.sleep(600)
+
 
         val requl = Intent(this, ServesNotify::class.java)
         requl.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -227,8 +239,9 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
 
                val json1=  JSONObject()
 
-                json1.put("version", "1.0")
+                json1.put("version", myVersionNumber)
                 json1.put("api_key", prefc.getString("api_real_key", "").toString())
+
 
              val sdf =  AsynchronousGet(prefc.getString("api_k", "")!!, 4, json1)
                 sdf.dataReturn = this
@@ -349,7 +362,6 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
                         tv.movementMethod = LinkMovementMethod.getInstance()
                         tv.text = df
 
-                        println(" aasdsd ")
 
                       val alertLink = MaterialAlertDialogBuilder(this)
                         alertLink
@@ -361,6 +373,15 @@ class ScreenMainApp : AppCompatActivity(), CallbackData {
             dialog, id ->  dialog.cancel()
                                 println(" press okok ")
                                 //mainAlert!!.dismiss()
+
+//                                val iner = Intent(this, WEbActive::class.java)
+//                                iner.putExtra("link_al", sdf.get("link").toString())
+//                                startActivity(iner)
+
+                                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(sdf.get("link").toString()))
+                                startActivity(browserIntent)
+
+
                     }
             alertLink.create()
 

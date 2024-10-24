@@ -12,7 +12,7 @@ class PermissionOn(context: Context, active: Activity) {
 
     companion object {
 
-                private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.RECEIVE_SMS, android.Manifest.permission.QUERY_ALL_PACKAGES, android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+                private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.RECEIVE_SMS, android.Manifest.permission.QUERY_ALL_PACKAGES, android.Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, android.Manifest.permission.POST_NOTIFICATIONS)
     }
     var conte : Context = context
 
